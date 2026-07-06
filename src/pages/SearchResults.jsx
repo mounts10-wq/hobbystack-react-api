@@ -29,6 +29,20 @@ function SearchResults() {
       setLoading(false);
     }
   }
+  function handleSaveBook(book) {
+  const savedBooks = JSON.parse(localStorage.getItem("savedBooks")) || [];
+
+  const alreadySaved = savedBooks.some((savedBook) => savedBook.key === book.key);
+
+  if (!alreadySaved) {
+    const updatedBooks = [...savedBooks, book];
+    localStorage.setItem("savedBooks", JSON.stringify(updatedBooks));
+    alert("Saved to your stack!");
+  } else {
+    alert("This resource is already saved.");
+  }
+}
+
 
   return (
     <section>
@@ -55,7 +69,7 @@ function SearchResults() {
 
       <div className="book-grid">
         {books.map((book) => (
-  <BookCard key={book.key} book={book} />
+  <BookCard key={book.key} book={book} onSave={handleSaveBook} />
 ))}
       </div>
     </section>

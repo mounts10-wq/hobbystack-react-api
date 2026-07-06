@@ -103,3 +103,32 @@ body {
 .book-info {
   margin-top: 0.75rem;
 }
+
+.save-button,
+.remove-button {
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.65rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.save-button {
+  background: #16a34a;
+  color: white;
+}
+
+.save-button:hover {
+  background: #15803d;
+}
+
+.remove-button {
+  background: #dc2626;
+  color: white;
+}
+
+.remove-button:hover {
+  background: #b91c1c;
+}
