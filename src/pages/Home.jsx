@@ -15,7 +15,7 @@ function Home() {
       <div className="hero">
         <h1>Discover resources for every hobby.</h1>
         <p>
-          HobbyStack helps makers, builders, and hobbyists find books and
+          HobbyBook helps makers, builders, and hobbyists find books and
           learning resources for the projects they care about.
         </p>
 
@@ -43,7 +43,7 @@ function Home() {
       <div className="home-section">
         <h2>Save useful resources</h2>
         <p>
-          Add helpful books to your Saved Stack so you can come back to them
+          Add helpful books to your Saved Book Stack so you can come back to them
           later while planning future projects.
         </p>
       </div>

@@ -22,7 +22,7 @@ function BookCard({ book, onSave, onRemove, isSavedPage = false }) {
           </button>
         ) : (
           <button className="save-button" onClick={() => onSave(book)}>
-            Save to Stack
+            Save to Book Stack
           </button>
         )}
       </div>

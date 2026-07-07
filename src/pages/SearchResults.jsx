@@ -55,7 +55,7 @@ function SearchResults() {
     if (!alreadySaved) {
       const updatedBooks = [...savedBooks, book];
       localStorage.setItem("savedBooks", JSON.stringify(updatedBooks));
-      alert("Saved to your stack!");
+      alert("Saved to your book stack!");
     } else {
       alert("This resource is already saved.");
     }

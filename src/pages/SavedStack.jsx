@@ -17,7 +17,7 @@ function SavedStack() {
 
   return (
     <section>
-      <h1>Saved Stack</h1>
+      <h1>Saved BookStack</h1>
       <p>Your saved hobby resources will appear here.</p>
 
       {savedBooks.length === 0 ? (
