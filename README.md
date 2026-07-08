@@ -1,2 +1,3 @@
 Hobbyists often need inspiration, guides, and learning resources, but searching across the internet can feel scattered. This app helps users search hobby-related books and resources in one clean interface so they can quickly find ideas for projects they may want to build or learn.
 HobbyBook is a React application that helps users discover learning resources for hobbies and creative projects. Users can search for a hobby, view book/resource results from the Open Library API, and save useful resources to their personal stack.
+test

@@ -5,16 +5,34 @@ function BookCard({ book, onSave, onRemove, isSavedPage = false }) {
 
   return (
     <article className="book-card">
-      {coverUrl ? (
-        <img src={coverUrl} alt={`Cover of ${book.title}`} className="book-cover" />
-      ) : (
-        <div className="book-cover placeholder-cover">No Cover</div>
-      )}
+      <div className="book-cover-wrapper">
+        {coverUrl ? (
+          <img
+            src={coverUrl}
+            alt={`Cover of ${book.title}`}
+            className="book-cover"
+          />
+        ) : (
+          <div className="book-cover placeholder-cover">No Cover</div>
+        )}
+      </div>
 
       <div className="book-info">
         <h3>{book.title}</h3>
-        <p>{book.author_name?.join(", ") || "Unknown author"}</p>
-        <p>First published: {book.first_publish_year || "Unknown"}</p>
+
+        <p className="book-author">
+          {book.author_name?.join(", ") || "Unknown author"}
+        </p>
+
+        <p className="book-meta">
+          First published: {book.first_publish_year || "Unknown"}
+        </p>
+
+        {book.subject?.length > 0 && (
+          <p className="book-subject">
+            Topic: {book.subject[0]}
+          </p>
+        )}
 
         {isSavedPage ? (
           <button className="remove-button" onClick={() => onRemove(book.key)}>
@@ -22,7 +40,7 @@ function BookCard({ book, onSave, onRemove, isSavedPage = false }) {
           </button>
         ) : (
           <button className="save-button" onClick={() => onSave(book)}>
-            Save to Book Stack
+            Save to HobbyBook
           </button>
         )}
       </div>
