@@ -1,5 +1,5 @@
 # HobbyBook
-
+To run cd in and "npm run dev"
 HobbyBook is a React application that helps users discover learning resources for hobbies and creative projects. Users can search for a hobby, view book/resource results from the Open Library API, and save useful resources to their personal collection.
 
 ## Project Description
