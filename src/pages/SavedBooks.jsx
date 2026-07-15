@@ -1,18 +1,26 @@
 import { useEffect, useState } from "react";
 import BookCard from "../components/BookCard";
+import { getSavedBooks, removeSavedBook } from "../services/savedBooksStorage";
 
 function SavedBooks() {
   const [savedBooks, setSavedBooks] = useState([]);
 
   useEffect(() => {
-    const storedBooks = JSON.parse(localStorage.getItem("savedBooks")) || [];
-    setSavedBooks(storedBooks);
+    setSavedBooks(getSavedBooks());
+
+    function handleStorageChange(event) {
+      if (event.key === "savedBooks") {
+        setSavedBooks(getSavedBooks());
+      }
+    }
+
+    window.addEventListener("storage", handleStorageChange);
+    return () => window.removeEventListener("storage", handleStorageChange);
   }, []);
 
   function handleRemoveBook(bookKey) {
-    const updatedBooks = savedBooks.filter((book) => book.key !== bookKey);
+    const updatedBooks = removeSavedBook(bookKey);
     setSavedBooks(updatedBooks);
-    localStorage.setItem("savedBooks", JSON.stringify(updatedBooks));
   }
 
   return (

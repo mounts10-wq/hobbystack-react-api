@@ -1,6 +1,10 @@
 const BASE_URL = "https://openlibrary.org/search.json";
 
 export async function searchBooks(query) {
+  if (!query?.trim()) {
+    return [];
+  }
+
   const response = await fetch(
     `${BASE_URL}?q=${encodeURIComponent(query)}&limit=12`
   );

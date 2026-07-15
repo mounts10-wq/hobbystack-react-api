@@ -1,14 +1,17 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 function Navbar() {
+  const navLinkClassName = ({ isActive }) =>
+    isActive ? "nav-link active" : "nav-link";
+
   return (
     <nav className="navbar">
       <Link to="/" className="logo">HobbyBook</Link>
 
       <div className="nav-links">
-        <Link to="/">Home</Link>
-        <Link to="/search">Search</Link>
-        <Link to="/saved">Saved Books</Link>
+        <NavLink to="/" className={navLinkClassName}>Home</NavLink>
+        <NavLink to="/search" className={navLinkClassName}>Search</NavLink>
+        <NavLink to="/saved" className={navLinkClassName}>Saved Books</NavLink>
       </div>
     </nav>
   );

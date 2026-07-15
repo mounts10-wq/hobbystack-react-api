@@ -2,20 +2,24 @@ import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import { searchBooks } from "../services/openLibraryApi";
 import BookCard from "../components/BookCard";
+import { saveBook } from "../services/savedBooksStorage";
 
 function SearchResults() {
-  const [searchParams] = useSearchParams();
-  const topic = searchParams.get("topic");
+  const [searchParams, setSearchParams] = useSearchParams();
+  const topic = searchParams.get("topic")?.trim() || "";
 
   const [query, setQuery] = useState("");
   const [books, setBooks] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [feedbackMessage, setFeedbackMessage] = useState("");
 
   useEffect(() => {
     if (topic) {
       setQuery(topic);
       fetchBooks(topic);
+    } else {
+      setBooks([]);
     }
   }, [topic]);
 
@@ -37,28 +41,28 @@ function SearchResults() {
   function handleSearch(event) {
     event.preventDefault();
 
-    if (!query.trim()) {
+    const trimmedQuery = query.trim();
+
+    if (!trimmedQuery) {
       setError("Please enter a hobby or topic to search.");
       return;
     }
 
-    fetchBooks(query);
+    if (trimmedQuery.toLowerCase() === topic.toLowerCase()) {
+      fetchBooks(trimmedQuery);
+      return;
+    }
+
+    setSearchParams({ topic: trimmedQuery });
   }
 
   function handleSaveBook(book) {
-    const savedBooks = JSON.parse(localStorage.getItem("savedBooks")) || [];
-
-    const alreadySaved = savedBooks.some(
-      (savedBook) => savedBook.key === book.key
+    const { added } = saveBook(book);
+    setFeedbackMessage(
+      added
+        ? "Saved to your book stack."
+        : "This resource is already in your saved list."
     );
-
-    if (!alreadySaved) {
-      const updatedBooks = [...savedBooks, book];
-      localStorage.setItem("savedBooks", JSON.stringify(updatedBooks));
-      alert("Saved to your book stack!");
-    } else {
-      alert("This resource is already saved.");
-    }
   }
 
   return (
@@ -74,16 +78,29 @@ function SearchResults() {
           onChange={(event) => setQuery(event.target.value)}
         />
 
-        <button type="submit">Search</button>
+        <button type="submit" disabled={loading}>
+          {loading ? "Searching..." : "Search"}
+        </button>
       </form>
-       {books.length > 0 && !loading && (
-  <p className="results-count">
-    Showing {books.length} resources for "{query}"
-  </p>
-)}
- 
+
+      {feedbackMessage && (
+        <p className="status-message" aria-live="polite">
+          {feedbackMessage}
+        </p>
+      )}
+
+      {books.length > 0 && !loading && (
+        <p className="results-count">
+          Showing {books.length} resources for "{query}"
+        </p>
+      )}
+
       {loading && <p>Loading resources...</p>}
-      {error && <p className="error-message">{error}</p>}
+      {error && (
+        <p className="error-message" aria-live="polite">
+          {error}
+        </p>
+      )}
 
       {!loading && !error && books.length === 0 && (
         <p>No resources yet. Try searching for a hobby.</p>
